@@ -1,7 +1,4 @@
-import Bean.Area;
-import Bean.City;
-import Bean.Province;
-import Bean.Street;
+import Bean.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +9,10 @@ public class Trimmer {
 
     public Trimmer(String origin) {
         string = origin.substring(0,origin.length()-1);
+    }
+
+    Result toResult() {
+        return new Result(name,phone,addressList);
     }
 
     private String name;

@@ -6,6 +6,12 @@ import java.util.List;
 
 public class Result {
 
+    public Result(String name, String phone, List<String> address) {
+        this.name = name;
+        this.phone = phone;
+        this.address = address;
+    }
+
     @Json(name = "姓名")
     private String name;
 
