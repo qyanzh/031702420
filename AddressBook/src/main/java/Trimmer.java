@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
 public class Trimmer {
 
     public Trimmer(String origin) {
-        string = origin;
+        string = origin.substring(0,origin.length()-1);
     }
 
     private String name;
@@ -74,7 +74,16 @@ public class Trimmer {
             addressList.add("");
         }
 
-        addressList.add(string.substring(0,string.length()-1));
+
+        switch (level) {
+            case "1" :
+                addressList.add(string);
+                break;
+            case "2":
+            case "3":
+                trimDetails();
+        }
+
         return this;
     }
 
@@ -146,6 +155,20 @@ public class Trimmer {
                 this.street = street;
                 break;
             }
+        }
+    }
+
+    private void trimDetails() {
+        String splitter = "(\\D+)(\\d+号)(.*)";
+        Pattern pattern = Pattern.compile(splitter);
+        Matcher matcher = pattern.matcher(string);
+        if (matcher.find()) {
+            String road = matcher.group(1);
+            String number = matcher.group(2);
+            String last = matcher.group(3);
+            addressList.add(road);
+            addressList.add(number);
+            addressList.add(last);
         }
     }
 
