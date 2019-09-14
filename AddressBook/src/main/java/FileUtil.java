@@ -5,11 +5,10 @@ import java.util.List;
 
 class FileUtil {
 
-    static List<String> convertFileToStringList(String path) {
+    static List<String> convertFileToStringList(InputStream fileInputStream) {
         List<String> stringList = new ArrayList<>();
         BufferedReader reader = null;
         try {
-            FileInputStream fileInputStream = new FileInputStream(path);
             InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream, StandardCharsets.UTF_8);
             reader = new BufferedReader(inputStreamReader);
             String tempString;
@@ -35,8 +34,9 @@ class FileUtil {
         File file = new File(path);
         try {
             if (file.exists()) {
-                file.delete();
-                file.createNewFile();
+                if (!(file.delete() && file.createNewFile())) {
+                    throw new IOException("Fail to create file.");
+                }
             }
             FileOutputStream fileOutputStream = new FileOutputStream(file);
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream, StandardCharsets.UTF_8);

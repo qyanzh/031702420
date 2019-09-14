@@ -3,27 +3,27 @@ import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 import com.squareup.moshi.Types;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println(args[0] + " "+args[1]);
         Data.build();
         String inputPath = args[0];
-        List<String> input = FileUtil.convertFileToStringList(inputPath);
-        for(int i=0;i<5;i++) {
-            System.out.println(input.get(i));
+        try {
+            FileInputStream fileInputStream = new FileInputStream(inputPath);
+            List<String> input = FileUtil.convertFileToStringList(fileInputStream);
+            List<Result> results = new ArrayList<>();
+            input.forEach(s -> results.add(new Trimmer(s).trim().toResult()));
+            String output = resultToJson(results);
+            String outputPath = args[1];
+            FileUtil.stringToFile(output,outputPath);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
-
-        List<Result> results = new ArrayList<>();
-        input.forEach(s -> results.add(new Trimmer(s).trim().toResult()));
-
-        String output = resultToJson(results);
-        String outputPath = args[1];
-        FileUtil.stringToFile(output,outputPath);
-
     }
 
     private static String resultToJson(List<Result> results) {
