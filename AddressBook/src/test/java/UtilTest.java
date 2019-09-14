@@ -4,7 +4,6 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
 
 public class UtilTest {
 
@@ -16,7 +15,7 @@ public class UtilTest {
     @Test
     public void buildTest() {
         Data.build();
-        Assert.assertEquals(31,Data.getProvinces().size());
+        Assert.assertEquals(31, Data.getProvinces().size());
     }
 
     @Test
