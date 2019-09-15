@@ -5,7 +5,6 @@ plugins {
 group 'com.zaqny'
 version ''
 
-libsDirName = '/..'
 
 sourceCompatibility = 1.8
 
