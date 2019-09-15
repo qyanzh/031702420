@@ -11,7 +11,6 @@ public class Area {
     @Json(name = "children")
     private List<Street> streets;
 
-
     public String getName() {
         return name;
     }
