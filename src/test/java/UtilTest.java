@@ -26,6 +26,7 @@ public class UtilTest {
         testCases.add("3!小美,北京市东15822153326城区交道口东大街1号北京市东城区人民法院.");
         testCases.add("1!小陈,广东省东莞市凤岗13965231525镇凤平路13号.");
         testCases.add("1!张三,福建闽13599622362侯县上街镇福州大学10#111.");
+        testCases.add("1!小明,内蒙古锡13599622362林郭勒盟二连浩特市.");
         testCases.forEach(this::trimString);
     }
 

@@ -8,11 +8,11 @@ import java.util.regex.Pattern;
 public class Trimmer {
 
     public Trimmer(String origin) {
-        string = origin.substring(0,origin.length()-1);
+        string = origin.substring(0, origin.length() - 1);
     }
 
     Result toResult() {
-        return new Result(name,phone,addressList);
+        return new Result(name, phone, addressList);
     }
 
     private String name;
@@ -77,7 +77,7 @@ public class Trimmer {
 
 
         switch (level) {
-            case "1" :
+            case "1":
                 addressList.add(string);
                 break;
             case "2":
@@ -108,53 +108,61 @@ public class Trimmer {
     }
 
     private void trimProvince() {
-        String subString = string.substring(0, 2);
-        for (Province province : Data.getProvinces()) {
-            if (province.getName().contains(subString)) {
-                String name = province.getName();
-                switch (name) {
-                    case "北京":
-                    case "上海":
-                    case "天津":
-                    case "重庆":
-                        string = name + string;
+        if (string.length() >= 2) {
+            String subString = string.substring(0, 2);
+            for (Province province : Data.getProvinces()) {
+                if (province.getName().contains(subString)) {
+                    String name = province.getName();
+                    switch (name) {
+                        case "北京":
+                        case "上海":
+                        case "天津":
+                        case "重庆":
+                            string = name + string;
+                    }
+                    string = trimSame(string, province.getName());
+                    this.province = province;
+                    break;
                 }
-                string = trimSame(string, province.getName());
-                this.province = province;
-                break;
             }
         }
     }
 
     private void trimCity(List<City> cities) {
-        String subString = string.substring(0, 2);
-        for (City city : cities) {
-            if (city.getName().contains(subString)) {
-                string = trimSame(string, city.getName());
-                this.city = city;
-                break;
+        if (string.length() >= 2) {
+            String subString = string.substring(0, 2);
+            for (City city : cities) {
+                if (city.getName().contains(subString)) {
+                    string = trimSame(string, city.getName());
+                    this.city = city;
+                    break;
+                }
             }
         }
     }
 
     private void trimArea(List<Area> areas) {
-        String subString = string.substring(0, 2);
-        for (Area area : areas) {
-            if (area.getName().contains(subString)) {
-                string = trimSame(string, area.getName());
-                this.area = area;
-                break;
+        if (string.length() >= 2) {
+            String subString = string.substring(0, 2);
+            for (Area area : areas) {
+                if (area.getName().contains(subString)) {
+                    string = trimSame(string, area.getName());
+                    this.area = area;
+                    break;
+                }
             }
         }
     }
 
     private void trimStreet(List<Street> streets) {
-        String subString = string.substring(0, 2);
-        for (Street street : streets) {
-            if (street.getName().contains(subString)) {
-                string = trimSame(string, street.getName());
-                this.street = street;
-                break;
+        if (string.length() >= 2) {
+            String subString = string.substring(0, 2);
+            for (Street street : streets) {
+                if (street.getName().contains(subString)) {
+                    string = trimSame(string, street.getName());
+                    this.street = street;
+                    break;
+                }
             }
         }
     }
