@@ -1,4 +1,4 @@
-import Bean.Province;
+import bean.Province;
 
 import java.io.IOException;
 import java.io.InputStream;

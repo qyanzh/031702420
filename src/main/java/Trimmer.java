@@ -1,4 +1,4 @@
-import Bean.*;
+import bean.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,14 +6,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Trimmer {
-
-    public Trimmer(String origin) {
-        string = origin.substring(0, origin.length() - 1);
-    }
-
-    Result toResult() {
-        return new Result(name, phone, addressList);
-    }
 
     private String name;
 
@@ -32,6 +24,14 @@ public class Trimmer {
     private Area area;
 
     private Street street;
+
+    public Trimmer(String origin) {
+        string = origin.substring(0, origin.length() - 1);
+    }
+
+    Result toResult() {
+        return new Result(name, phone, addressList);
+    }
 
     public Trimmer trim() {
         trimLevelAndName();
@@ -83,6 +83,8 @@ public class Trimmer {
             case "2":
             case "3":
                 trimDetails();
+            default:
+                break;
         }
 
         return this;
@@ -119,6 +121,8 @@ public class Trimmer {
                         case "天津":
                         case "重庆":
                             string = name + string;
+                        default:
+                            break;
                     }
                     string = trimSame(string, province.getName());
                     this.province = province;

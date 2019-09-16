@@ -1,5 +1,5 @@
-import Bean.Province;
-import Bean.Result;
+import bean.Province;
+import bean.Result;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 import com.squareup.moshi.Types;

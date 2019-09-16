@@ -1,16 +1,10 @@
-package Bean;
+package bean;
 
 import com.squareup.moshi.Json;
 
 import java.util.List;
 
 public class Result {
-
-    public Result(String name, String phone, List<String> address) {
-        this.name = name;
-        this.phone = phone;
-        this.address = address;
-    }
 
     @Json(name = "姓名")
     private String name;
@@ -23,6 +17,12 @@ public class Result {
 
     public String getName() {
         return name;
+    }
+
+    public Result(String name, String phone, List<String> address) {
+        this.name = name;
+        this.phone = phone;
+        this.address = address;
     }
 
     public void setName(String name) {

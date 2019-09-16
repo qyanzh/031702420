@@ -1,4 +1,4 @@
-import Bean.Result;
+import bean.Result;
 
 import java.io.IOException;
 import java.util.ArrayList;

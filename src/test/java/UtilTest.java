@@ -4,7 +4,6 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class UtilTest {
 
@@ -31,9 +30,8 @@ public class UtilTest {
         testCases.add("1!梁钓睡,江西省九江市修水县208县道征村乡熏衣村村民委13510061140员会.");
         testCases.add("1!陈敲,北京市顺义区石园街道顺康路1号港馨家18770445535园19号楼.");
         testCases.add("1!梁钓睡,江西省九江市修水县208县道征村乡熏衣村村13510061140民居委会");
-        testCases.add("1!梁钓睡,江西省九江市修水县208县道征村乡熏衣村村13510061140民居委会");
+        testCases.add("1!梁钓睡,福建省九江市修水县征村乡熏衣村村13510061140民居委会");
         testCases.forEach(this::trimString);
-
     }
 
     private void trimString(String string) {
