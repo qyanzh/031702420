@@ -1,3 +1,5 @@
+package test;
+
 import main.Main;
 import org.junit.Assert;
 import org.junit.Before;

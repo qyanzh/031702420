@@ -120,16 +120,16 @@ public class Trimmer {
             for (Province province : DataUtil.getProvinces()) {
                 if (province.getName().contains(subString)) {
                     String name = province.getName();
-                    if (name.equals("北京")
-                            || name.equals("上海")
-                            || name.equals("天津")
-                            || name.equals("重庆")) {
+                    if ("北京".equals(name)
+                            || "上海".equals(name)
+                            || "天津".equals(name)
+                            || "重庆".equals(name)) {
                         string = name + string;
                     }
+                    string = trimSame(string, province.getName());
+                    this.province = province;
+                    break;
                 }
-                string = trimSame(string, province.getName());
-                this.province = province;
-                break;
             }
         }
     }
