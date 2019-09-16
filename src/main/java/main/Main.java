@@ -1,4 +1,10 @@
+package main;
+
 import bean.Result;
+import utils.DataUtil;
+import utils.FileUtil;
+import utils.JsonUtil;
+import utils.Trimmer;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -6,7 +12,7 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        Data.build();
+        DataUtil.build();
         try {
             String inputPath = args[0];
             List<String> input = FileUtil.convertFileToStringList(inputPath);

@@ -1,16 +1,18 @@
+package utils;
+
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
-class FileUtil {
+public class FileUtil {
 
-    static List<String> convertFileToStringList(String inputPath) throws IOException{
+    public static List<String> convertFileToStringList(String inputPath) throws IOException{
         FileInputStream fileInputStream = new FileInputStream(inputPath);
         return convertFileToStringList(fileInputStream);
     }
 
-    static List<String> convertFileToStringList(InputStream fileInputStream) {
+    public static List<String> convertFileToStringList(InputStream fileInputStream) {
         List<String> stringList = new ArrayList<>();
         BufferedReader reader = null;
         try {
@@ -34,14 +36,13 @@ class FileUtil {
         return stringList;
     }
 
-    static void convertStringToFile(String target, String path) {
+    public static void convertStringToFile(String target, String path) {
         BufferedWriter writer = null;
         File file = new File(path);
         try {
             if (file.exists()) {
-                if (!(file.delete() && file.createNewFile())) {
-                    throw new IOException("Fail to create file.");
-                }
+               file.delete();
+               file.createNewFile();
             }
             FileOutputStream fileOutputStream = new FileOutputStream(file);
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream, StandardCharsets.UTF_8);

@@ -1,20 +1,23 @@
+import main.Main;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import utils.DataUtil;
+import utils.Trimmer;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class UtilTest {
+public class UnitTest {
 
     @Before
     public void init() {
-        Data.build();
+        DataUtil.build();
     }
 
     @Test
     public void buildTest() {
-        Assert.assertEquals(31, Data.getProvinces().size());
+        Assert.assertEquals(31, DataUtil.getProvinces().size());
     }
 
     @Test

@@ -1,3 +1,5 @@
+package utils;
+
 import bean.*;
 
 import java.util.ArrayList;
@@ -11,7 +13,7 @@ public class Trimmer {
 
     private String phone;
 
-    private List<String> addressList = new ArrayList<>();
+    private final List<String> addressList = new ArrayList<>();
 
     private String string;
 
@@ -29,7 +31,7 @@ public class Trimmer {
         string = origin.substring(0, origin.length() - 1);
     }
 
-    Result toResult() {
+    public Result toResult() {
         return new Result(name, phone, addressList);
     }
 
@@ -81,8 +83,11 @@ public class Trimmer {
                 addressList.add(string);
                 break;
             case "2":
+                trimDetails();
+                break;
             case "3":
                 trimDetails();
+                break;
             default:
                 break;
         }
@@ -112,25 +117,23 @@ public class Trimmer {
     private void trimProvince() {
         if (string.length() >= 2) {
             String subString = string.substring(0, 2);
-            for (Province province : Data.getProvinces()) {
+            for (Province province : DataUtil.getProvinces()) {
                 if (province.getName().contains(subString)) {
                     String name = province.getName();
-                    switch (name) {
-                        case "北京":
-                        case "上海":
-                        case "天津":
-                        case "重庆":
-                            string = name + string;
-                        default:
-                            break;
+                    if (name.equals("北京")
+                            || name.equals("上海")
+                            || name.equals("天津")
+                            || name.equals("重庆")) {
+                        string = name + string;
                     }
-                    string = trimSame(string, province.getName());
-                    this.province = province;
-                    break;
                 }
+                string = trimSame(string, province.getName());
+                this.province = province;
+                break;
             }
         }
     }
+
 
     private void trimCity(List<City> cities) {
         if (string.length() >= 2) {
