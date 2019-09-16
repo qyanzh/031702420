@@ -5,6 +5,11 @@ import java.util.List;
 
 class FileUtil {
 
+    static List<String> convertFileToStringList(String inputPath) throws IOException{
+        FileInputStream fileInputStream = new FileInputStream(inputPath);
+        return convertFileToStringList(fileInputStream);
+    }
+
     static List<String> convertFileToStringList(InputStream fileInputStream) {
         List<String> stringList = new ArrayList<>();
         BufferedReader reader = null;
@@ -29,7 +34,7 @@ class FileUtil {
         return stringList;
     }
 
-    static void stringToFile(String target, String path) {
+    static void convertStringToFile(String target, String path) {
         BufferedWriter writer = null;
         File file = new File(path);
         try {

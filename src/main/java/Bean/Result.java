@@ -45,4 +45,12 @@ public class Result {
         this.address = address;
     }
 
+    @Override
+    public String toString() {
+        return "Result{" +
+                "name='" + name + '\'' +
+                ", phone='" + phone + '\'' +
+                ", address=" + address +
+                '}';
+    }
 }
