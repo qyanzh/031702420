@@ -11,7 +11,8 @@ public class DataUtil {
     private static List<Province> provinces;
 
     public static void build() {
-        InputStream inputStream = DataUtil.class.getResourceAsStream("/pcas-code.json");
+        String filePath = "/pcas-code.json";
+        InputStream inputStream = DataUtil.class.getResourceAsStream(filePath);
         StringBuilder json = new StringBuilder();
         FileUtil.convertFileToStringList(inputStream).forEach(json::append);
         try {

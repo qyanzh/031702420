@@ -1,6 +1,6 @@
-package utils;
+package bean;
 
-import bean.*;
+import utils.DataUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -95,6 +95,7 @@ public class Trimmer {
         return this;
     }
 
+
     private void trimLevelAndName() {
         String splitter = "[!,]";
         String[] results = string.split(splitter);
@@ -104,13 +105,12 @@ public class Trimmer {
     }
 
     private void trimPhone() {
-        String splitter = "[\\d]{11}";
+        String splitter = "[\\d]{11,}";
         Pattern pattern = Pattern.compile(splitter);
         Matcher matcher = pattern.matcher(string);
         if (matcher.find()) {
             phone = matcher.group(0);
-            String[] result = string.split(phone);
-            string = result[0] + result[1];
+            string = string.replace(phone, "");
         }
     }
 
@@ -126,7 +126,7 @@ public class Trimmer {
                             || "重庆".equals(name)) {
                         string = name + string;
                     }
-                    string = trimSame(string, province.getName());
+                    trimSame(string, province.getName());
                     this.province = province;
                     break;
                 }
@@ -140,7 +140,7 @@ public class Trimmer {
             String subString = string.substring(0, 2);
             for (City city : cities) {
                 if (city.getName().contains(subString)) {
-                    string = trimSame(string, city.getName());
+                    trimSame(string, city.getName());
                     this.city = city;
                     break;
                 }
@@ -153,7 +153,7 @@ public class Trimmer {
             String subString = string.substring(0, 2);
             for (Area area : areas) {
                 if (area.getName().contains(subString)) {
-                    string = trimSame(string, area.getName());
+                    trimSame(string, area.getName());
                     this.area = area;
                     break;
                 }
@@ -166,7 +166,7 @@ public class Trimmer {
             String subString = string.substring(0, 2);
             for (Street street : streets) {
                 if (street.getName().contains(subString)) {
-                    string = trimSame(string, street.getName());
+                    trimSame(string, street.getName());
                     this.street = street;
                     break;
                 }
@@ -175,21 +175,34 @@ public class Trimmer {
     }
 
     private void trimDetails() {
-        String splitter = "(\\D+)(\\d+号)(.*)";
+        String road = "", number = "";
+        String splitter = "(.*[区道路街巷里])";
         Pattern pattern = Pattern.compile(splitter);
         Matcher matcher = pattern.matcher(string);
         if (matcher.find()) {
-            String road = matcher.group(1);
-            String number = matcher.group(2);
-            String last = matcher.group(3);
-            addressList.add(road);
-            addressList.add(number);
-            addressList.add(last);
+            road = matcher.group();
+            trimSame(string, road);
         }
+        splitter = "(\\d+号楼.*)";
+        pattern = Pattern.compile(splitter);
+        matcher = pattern.matcher(string);
+        if(matcher.find()){
+            string = matcher.group();
+        } else {
+            splitter = "(\\d+号)";
+            pattern = Pattern.compile(splitter);
+            matcher = pattern.matcher(string);
+            if(matcher.find()) {
+                number = matcher.group();
+                trimSame(string, number);
+            }
+        }
+        addressList.add(road);
+        addressList.add(number);
+        addressList.add(string);
     }
 
-
-    private String trimSame(String origin, String toTrim) {
+    private void trimSame(String origin, String toTrim) {
         int length = Math.min(origin.length(), toTrim.length());
         int index = length;
         for (int i = 0; i < length; i++) {
@@ -198,7 +211,43 @@ public class Trimmer {
                 break;
             }
         }
-        return origin.substring(index);
+        string = origin.substring(index);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public List<String> getAddressList() {
+        return addressList;
+    }
+
+    public String getString() {
+        return string;
+    }
+
+    public String getLevel() {
+        return level;
+    }
+
+    public Province getProvince() {
+        return province;
+    }
+
+    public City getCity() {
+        return city;
+    }
+
+    public Area getArea() {
+        return area;
+    }
+
+    public Street getStreet() {
+        return street;
     }
 
     @Override

@@ -1,16 +1,17 @@
 package main;
 
 import bean.Result;
+import bean.Trimmer;
 import utils.DataUtil;
 import utils.FileUtil;
 import utils.JsonUtil;
-import utils.Trimmer;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
+
     public static void main(String[] args) {
         DataUtil.build();
         try {
