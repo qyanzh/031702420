@@ -175,7 +175,8 @@ public class Trimmer {
     }
 
     private void trimDetails() {
-        String road = "", number = "";
+        String road = "";
+        String number = "";
         String splitter = "(.*[区道路街巷里])";
         Pattern pattern = Pattern.compile(splitter);
         Matcher matcher = pattern.matcher(string);

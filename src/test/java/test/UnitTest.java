@@ -6,7 +6,6 @@ import main.Main;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.platform.commons.annotation.Testable;
 import utils.DataUtil;
 
 
@@ -18,7 +17,7 @@ public class UnitTest {
         Assert.assertEquals(31, DataUtil.getProvinces().size());
     }
 
-    @Testable
+    @Test
     public void mainTest() {
         String[] s = new String[]{"1.txt", "2.txt"};
         Main.main(s);
@@ -262,7 +261,7 @@ public class UnitTest {
 
     private void resultTest(String testCase, String expectedName, String expectedPhone, String[] expectedAddress) {
         Result result = new Trimmer(testCase).trim().toResult();
-        String message = testCase+System.lineSeparator()+result.toString();
+        String message = testCase + System.lineSeparator() + result.toString();
         Assert.assertEquals(message, expectedName, result.getName());
         Assert.assertEquals(message, expectedPhone, result.getPhone());
         Assert.assertArrayEquals(message, expectedAddress, result.getAddress().toArray());
