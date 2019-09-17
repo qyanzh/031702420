@@ -1,5 +1,6 @@
 package bean;
 
+import exceptions.WrongInputException;
 import utils.DataUtil;
 
 import java.util.ArrayList;
@@ -36,72 +37,80 @@ public class Trimmer {
     }
 
     public Trimmer trim() {
-        trimLevelAndName();
-        trimPhone();
-        trimProvince();
+        try {
+            trimLevelAndName();
+            trimPhone();
+            trimProvince();
 
-        if (province != null) {
-            addressList.add(province.getName());
-            trimCity(province.getCities());
-        } else {
-            addressList.add("");
-        }
-
-        if (city != null) {
-            addressList.add(city.getName());
-            trimArea(city.getAreas());
-        } else {
-            addressList.add("");
             if (province != null) {
-                List<Area> areas = new ArrayList<>();
-                province.getCities().forEach(c -> areas.addAll(c.getAreas()));
-                trimArea(areas);
+                addressList.add(province.getName());
+                trimCity(province.getCities());
+            } else {
+                addressList.add("");
             }
-        }
 
-        if (area != null) {
-            addressList.add(area.getName());
-            trimStreet(area.getStreets());
-        } else {
-            addressList.add("");
             if (city != null) {
-                List<Street> streets = new ArrayList<>();
-                city.getAreas().forEach(a -> streets.addAll(a.getStreets()));
-                trimStreet(streets);
+                addressList.add(city.getName());
+                trimArea(city.getAreas());
+            } else {
+                addressList.add("");
+                if (province != null) {
+                    List<Area> areas = new ArrayList<>();
+                    province.getCities().forEach(c -> areas.addAll(c.getAreas()));
+                    trimArea(areas);
+                }
             }
+
+            if (area != null) {
+                addressList.add(area.getName());
+                trimStreet(area.getStreets());
+            } else {
+                addressList.add("");
+                if (city != null) {
+                    List<Street> streets = new ArrayList<>();
+                    city.getAreas().forEach(a -> streets.addAll(a.getStreets()));
+                    trimStreet(streets);
+                }
+            }
+
+            if (street != null) {
+                addressList.add(street.getName());
+            } else {
+                addressList.add("");
+            }
+
+
+            switch (level) {
+                case "1":
+                    addressList.add(string);
+                    break;
+                case "2":
+                    trimDetails();
+                    break;
+                case "3":
+                    trimDetails();
+                    break;
+                default:
+                    break;
+            }
+        } catch (WrongInputException e) {
+            name = "";
+            phone = "";
         }
-
-        if (street != null) {
-            addressList.add(street.getName());
-        } else {
-            addressList.add("");
-        }
-
-
-        switch (level) {
-            case "1":
-                addressList.add(string);
-                break;
-            case "2":
-                trimDetails();
-                break;
-            case "3":
-                trimDetails();
-                break;
-            default:
-                break;
-        }
-
         return this;
     }
 
 
-    private void trimLevelAndName() {
+    private void trimLevelAndName() throws WrongInputException {
         String splitter = "[!,]";
         String[] results = string.split(splitter);
-        level = results[0];
-        name = results[1];
-        string = results[2];
+        if (results.length > 2) {
+            level = results[0];
+            name = results[1];
+            string = results[2];
+        } else {
+            throw new WrongInputException("数据格式错误缺失");
+        }
     }
 
     private void trimPhone() {
@@ -187,13 +196,13 @@ public class Trimmer {
         splitter = "(\\d+号楼.*)";
         pattern = Pattern.compile(splitter);
         matcher = pattern.matcher(string);
-        if(matcher.find()){
+        if (matcher.find()) {
             string = matcher.group();
         } else {
             splitter = "(\\d+号)";
             pattern = Pattern.compile(splitter);
             matcher = pattern.matcher(string);
-            if(matcher.find()) {
+            if (matcher.find()) {
                 number = matcher.group();
                 trimSame(string, number);
             }

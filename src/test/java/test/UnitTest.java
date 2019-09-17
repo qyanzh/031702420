@@ -259,6 +259,12 @@ public class UnitTest {
         resultTest(testCase, name, phone, address);
     }
 
+    @Test
+    public void exceptionCase1() {
+        String testCase = "甘鞋,甘肃兰州西固区西柳沟街道18629411660什么花园.";
+        resultTest(testCase,"","",new String[]{});
+    }
+
     private void resultTest(String testCase, String expectedName, String expectedPhone, String[] expectedAddress) {
         Result result = new Trimmer(testCase).trim().toResult();
         String message = testCase + System.lineSeparator() + result.toString();
