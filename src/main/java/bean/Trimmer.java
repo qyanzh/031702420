@@ -47,6 +47,8 @@ public class Trimmer {
                 trimCity(province.getCities());
             } else {
                 addressList.add("");
+                List<City> cities = DataUtil.getCities();
+                trimCity(cities);
             }
 
             if (city != null) {
@@ -57,6 +59,9 @@ public class Trimmer {
                 if (province != null) {
                     List<Area> areas = new ArrayList<>();
                     province.getCities().forEach(c -> areas.addAll(c.getAreas()));
+                    trimArea(areas);
+                } else {
+                    List<Area> areas = DataUtil.getAreas();
                     trimArea(areas);
                 }
             }

@@ -260,6 +260,36 @@ public class UnitTest {
     }
 
     @Test
+    public void case16() {
+        String testCase = "1!王五,腾冲市满邑社区华园三小区47号18694520738.";
+        String name = "王五";
+        String phone = "18694520738";
+        String[] address = new String[]{
+                "",
+                "",
+                "腾冲市",
+                "",
+                "满邑社区华园三小区47号"
+        };
+        resultTest(testCase, name, phone, address);
+    }
+
+    @Test
+    public void case17() {
+        String testCase = "1!张三,福州市闽13599622362侯县上街镇福州大学10#111.";
+        String name = "张三";
+        String phone = "13599622362";
+        String[] address = new String[]{
+                "",
+                "福州市",
+                "闽侯县",
+                "上街镇",
+                "福州大学10#111"
+        };
+        resultTest(testCase, name, phone, address);
+    }
+
+    @Test
     public void exceptionCase1() {
         String testCase = "甘鞋,甘肃兰州西固区西柳沟街道18629411660什么花园.";
         resultTest(testCase,"","",new String[]{});
